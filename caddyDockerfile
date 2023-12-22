@@ -1,3 +1,6 @@
+# this will build a caddy container containing the Cloudflare DNS plugin. 
+# build with: docker build -f caddyDockerfile -t caddy:cloudflaredns .
+
 FROM caddy:2-builder-alpine AS builder
 
 RUN xcaddy build \
