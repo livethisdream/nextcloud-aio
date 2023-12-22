@@ -1,5 +1,7 @@
 version: "3.8"
 
+# specifically made for Mac OS X Catalina
+
 services:
   caddy:
     image: caddy:cloudflaredns
@@ -15,8 +17,6 @@ services:
       - "443:443"
       - "80:80"    
     #network_mode: "host" # incompatible with docker desktop, blocks 443
-#    networks:
-#      - caddy-proxy
 
   nextcloud:
     image: nextcloud/all-in-one:latest
@@ -34,13 +34,7 @@ services:
     volumes:
       - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
       - /var/run/docker.sock.raw:/var/run/docker.sock:ro
-#    networks:
-#      - caddy-proxy    
 
 volumes:
   nextcloud_aio_mastercontainer:
     name: nextcloud_aio_mastercontainer
-
-#networks:
-#  caddy-proxy:
-#    external: true
