@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  caddy:
+    image: caddy:cloudflaredns
+    restart: unless-stopped
+    container_name: caddy
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./certs:/certs
+      - ./config:/config
+      - ./data:/data
+      - ./sites:/srv
+    ports:
+      - "443:443"
+      - "80:80"    
+    #network_mode: "host" # incompatible with docker desktop, blocks 443
+#    networks:
+#      - caddy-proxy
+
+  nextcloud:
+    image: nextcloud/all-in-one:latest
+    restart: unless-stopped
+    container_name: nextcloud-aio-mastercontainer
+    ports:
+      - "8080:8080"
+      - "3478:3478"
+      - "8443:8443"
+    environment:
+      - APACHE_PORT=11001
+      - APACHE_IP_BINDING=0.0.0.0
+      #- SKIP_DOMAIN_VALIDATION=true
+      - NEXTCLOUD_DATADIR=/Volumes/Nextcloud/Nextcloud-AIO
+    volumes:
+      - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
+      - /var/run/docker.sock.raw:/var/run/docker.sock:ro
+#    networks:
+#      - caddy-proxy    
+
+volumes:
+  nextcloud_aio_mastercontainer:
+    name: nextcloud_aio_mastercontainer
+
+#networks:
+#  caddy-proxy:
+#    external: true
