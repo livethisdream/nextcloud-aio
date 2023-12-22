@@ -1,10 +1,10 @@
 {
-       email myemail@gmail.com
+       email myemail@gmail.com # fill in your email
 }
 
 https://nextcloud.mydomain.net:443 {
 	tls {
-		dns cloudflare <APIKEY> 
+		dns cloudflare <APIKEY> # get your API KEY from Cloudflare
 	}
 	header Strict-Transport-Security max-age=31536000;
 	reverse_proxy host.docker.internal:11001
