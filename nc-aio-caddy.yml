@@ -15,8 +15,8 @@ services:
       - ./sites:/srv
     ports:
       - "443:443"
-      - "80:80"    
-    #network_mode: "host" # incompatible with docker desktop, blocks 443
+      - "80:80"    # oh, it hurts! probably not needed, but caddy will redirect to https
+    #network_mode: "host" # incompatible with mac os x docker desktop, blocks 443
 
   nextcloud:
     image: nextcloud/all-in-one:latest
@@ -29,7 +29,7 @@ services:
     environment:
       - APACHE_PORT=11001
       - APACHE_IP_BINDING=0.0.0.0
-      #- SKIP_DOMAIN_VALIDATION=true
+      #- SKIP_DOMAIN_VALIDATION=true # I really tried not to use this
       - NEXTCLOUD_DATADIR=/Volumes/Nextcloud/Nextcloud-AIO
     volumes:
       - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
