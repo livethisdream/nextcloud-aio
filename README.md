@@ -104,6 +104,8 @@ Build this with:
 
 - Make sure you get a **really** clean start. If you try to run the docker-compose script and your toddler accidentally presses `ctrl+c`, go through the steps to [properly reset](https://github.com/nextcloud/all-in-one#how-to-properly-reset-the-instance) the instance. At some point, I considered making a bash script to do all this automatically, but I didn't want to spend time going down that rabbit hole, as it *would not* be a one-liner.
 
+- According to this [source](https://caddy.community/t/v2-caddyfile-problem-with-cloudflare-plugin/7886), you should use the Cloudflare API_TOKEN not the API_KEY!
+
 # Bonus content: A Simple Caddy Container
 
 - I had to start somewhere, so I built the basic Caddy docker image below to prove my container could serve up valid SSL certs. That should work if you spin it up, meaning you can see the response ("Hi") on a secure page when you visit your site (https://nextcloud.mydomain.net), with no self-signed cert errors.  
@@ -129,7 +131,7 @@ with the following Caddyfile:
 ```
 https://nextcloud.mydomain.net:443 {
         tls {
-                dns cloudflare <APIKEY>
+                dns cloudflare <APITOKEN>
         }
         respond "Hi"
 }
