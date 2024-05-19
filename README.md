@@ -57,13 +57,13 @@ volumes:
 
 ```
 
-My Caddyfile is:
+My Caddyfile is (make sure you get the API_TOKEN, not the API_KEY):
 
 ```
 #filename: Caddyfile
 https://nextcloud.mydomain.net:443 {
         tls { 
-              dns cloudflare <APIKEY>
+              dns cloudflare <APITOKEN>
               }        
         header Strict-Transport-Security max-age=31536000;
         #reverse_proxy nextcloud-aio-domaincheck:11001 # this won't resolve and you'll get a cryptic 502 error from caddy
