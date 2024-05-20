@@ -32,7 +32,8 @@ services:
     ports:
       - "443:443"
       - "80:80"
-    #network_mode: "host" # IMPORTANT: incompatible with docker desktop, blocks 443. Instead, in the Caddyfile, use `reverse_proxy host.docker.internal:11001`
+    #network_mode: "host" # IMPORTANT: incompatible with Mac OS X docker desktop, as it blocks 443.
+                          # Instead, in the Caddyfile, use `reverse_proxy host.docker.internal:11001`
 
   nextcloud:
     image: nextcloud/all-in-one:latest
@@ -66,8 +67,8 @@ https://nextcloud.mydomain.net:443 {
               dns cloudflare <APITOKEN>
               }        
         header Strict-Transport-Security max-age=31536000;
-        #reverse_proxy nextcloud-aio-domaincheck:11001 # this won't resolve and you'll get a cryptic 502 error from caddy
-        reverse_proxy host.docker.internal:11001 # 11001 just for kicks, bc 11000 wasn't working
+        #reverse_proxy localhost:11001 # ubuntu
+        reverse_proxy host.docker.internal:11001 # Mac OSX
 }
 ```
 
