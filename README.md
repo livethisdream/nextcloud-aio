@@ -12,11 +12,11 @@ Ok, I've been trying all week to try and get nextcloud aio running and I finally
 - Reverse proxy desired for automatic SSL renewal 
 - I'm fine to rebuild my database from scratch (i.e., upload files into the data directors and have Nextcloud rescan the files (more specifics on that later).
 
-- I really like the elegance of docker-compose, so I am using the following *.yml file
+- I really like the elegance of docker compose, so I am using the following *.yml file
 
 ```
 # filename: nc-aio-caddy.yml
-version: "3.8"
+# version: "3.8" # obsolete now
 
 services:
   caddy:
@@ -92,7 +92,7 @@ Build this with:
 
 - Finally, call the docker-compose with:
  
-`docker-compose -f nc-aio-caddy.yml up --force-recreate --build`
+`docker compose -f nc-aio-caddy.yml up --force-recreate --build`
 
 # Things I learned 
 
