@@ -31,9 +31,10 @@ services:
       - ./sites:/srv
     ports:
       - "443:443"
-      - "80:80"
-    #network_mode: "host" # IMPORTANT: incompatible with Mac OS X docker desktop, as it blocks 443.
-                          # Instead, in the Caddyfile, use `reverse_proxy host.docker.internal:11001`
+      #- "80:80"
+    #network_mode: "host" # IMPORTANT: this causes issues with the bind to localhost in caddy, so
+                          # in the Caddyfile, use `reverse_proxy host.docker.internal:11001` and...
+    extra_hosts: ["host.docker.internal:host-gateway"]
 
   nextcloud:
     image: nextcloud/all-in-one:latest
@@ -67,8 +68,7 @@ https://nextcloud.mydomain.net:443 {
               dns cloudflare <APITOKEN>
               }        
         header Strict-Transport-Security max-age=31536000;
-        #reverse_proxy localhost:11001 # ubuntu
-        reverse_proxy host.docker.internal:11001 # Mac OSX
+        reverse_proxy host.docker.internal:11001
 }
 ```
 
